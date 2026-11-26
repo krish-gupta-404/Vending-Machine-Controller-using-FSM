@@ -108,9 +108,9 @@ Coin and cancel inputs are ignored while the machine is dispensing, returning ch
   
 ### Build and program
 1. Create a new **RTL project** in Vivado and select the Boolean board's part (`XC7S50CSGA324-1`).
-2. Add the four files in `src/` as **design sources**.
+2. Add the four files in `rtl/` as **design sources**.
 3. Add `constraints/boolean_vending.xdc` as a **constraint**.
-4. Add `sim/tb_vending_fsm.v` as a **simulation source**.
+4. Add `tb/tb_vending_fsm.v` as a **simulation source**.
 5. Set `vending_top` as the top module.
 6. Run **Synthesis**, **Implementation**, then **Generate Bitstream**.
 7. Connect the board, open **Hardware Manager**, and click **Program Device**.
