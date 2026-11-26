@@ -1,5 +1,5 @@
 # Vending-Machine-Controller-using-FSM
-A finite-state-machine (FSM) vending machine controller written in Verilog and implemented on the **Boolean board** (Xilinx Spartan-7 XC7S50). Built as a Digital Logic and Computer Design (DLCD) project.
+A finite-state-machine (FSM) vending machine controller written in Verilog and implemented on the **Boolean board** (Xilinx Spartan-7 XC7S50).
  
 ![Language](https://img.shields.io/badge/language-Verilog-blue)
 ![Board](https://img.shields.io/badge/board-Boolean%20(Spartan--7)-green)
@@ -19,8 +19,6 @@ A finite-state-machine (FSM) vending machine controller written in Verilog and i
 - [Simulation](#simulation)
 - [Testing on the Board](#testing-on-the-board)
 - [Pin Mapping](#pin-mapping)
-- [Troubleshooting](#troubleshooting)
-- [DLCD Concepts Covered](#dlcd-concepts-covered)
 - [Future Improvements](#future-improvements)
   
 ## Overview
@@ -90,12 +88,12 @@ Coin and cancel inputs are ignored while the machine is dispensing, returning ch
 ## Repository Structure
 ```
 .
-├── src/
+├── rtl/
 │   ├── vending_top.v      # Top module (board I/O wiring)
 │   ├── vending_fsm.v      # FSM, credit/change logic, timers
 │   ├── debounce.v         # Synchronizer, debouncer, edge detector
 │   └── seg7_mux.v         # 7-segment decoder and display multiplexer
-├── sim/
+├── tb/
 │   └── tb_vending_fsm.v   # Self-checking testbench
 ├── constraints/
 │   └── boolean_vending.xdc  # Pin mapping for the Boolean board
@@ -131,6 +129,7 @@ The testbench uses shortened timers and prints a `PASS` or `FAIL` line for each 
 <p align="center">
   <img src="images/simulation_waveform.png" alt="Vivado behavioral simulation waveform" width="700">
 </p>
+
 ## Testing on the Board
 After programming, the display shows `0` and all LEDs are off. Start with both switches down.
  
@@ -158,16 +157,7 @@ All I/O uses 3.3 V (`LVCMOS33`). Pins come from the Boolean Board Reference Manu
  
 The 7-segment display is **active low**: `seg[0]` to `seg[7]` drive segments a, b, c, d, e, f, g, and the decimal point.
  
-## Troubleshooting
-- **Digits are mirrored or the number is on the wrong side:** set the `REVERSE_DIGITS` parameter to `1` in `vending_top.v`, then regenerate the bitstream.
-- **Display is dark:** the board has two display blocks (D0 and D1). To use D1, change the `an` and `seg` pins in the `.xdc`: `an` = H3, J4, F3, E4 and `seg` = F4, J3, D2, C2, B1, H4, D1, C1.
-- **A pick fires at power-up:** a switch left up when the board is programmed counts as a pick. Start with both switches down.
-- **Simulation fails to compile:** keep the project in a short local folder (for example `C:\vivado\vending`) and not inside a OneDrive-synced folder.
- 
 ## Future Improvements
 - Add a third item
 - Add a stock counter with a "sold out" indication
 - Add an inactivity timeout that refunds the credit automatically 
-## License
-Add a license file (for example MIT) before publishing.
- 
